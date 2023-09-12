@@ -42,4 +42,9 @@ class Computer:
         print(f"RAM: {self.ram}GB")
         print(f"Storage: {self.storage}")
         print(f"Operating System: {self.operating_system}")
-        print(f"Price: ${self.price}")
+        print(f"Price: ${self.price:.2f}")
+
+
+if __name__ == "__main__":
+    comp = Computer("Lenovo", "Ideapad", "AMD", 16, "128 GB", "Windows", 600)
+    comp.check_status()
