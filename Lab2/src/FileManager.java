@@ -1,11 +1,13 @@
+import model.FileSnapshot;
+import model.ImageFileSnapshot;
+import model.ProgramFileSnapshot;
+import model.TextFileSnapshot;
+
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.nio.file.*;
 
 public class FileManager {
     private List<FileSnapshot> snapshots;
