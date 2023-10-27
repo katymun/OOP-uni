@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +11,13 @@ class ProgramFileSnapshot extends FileSnapshot {
     private int classCount;
     private int methodCount;
 
-    public ProgramFileSnapshot(String name) {
-        super(name);
+    public ProgramFileSnapshot(String name, String path) {
+        super(name, path);
         int classes = 0;
         int lines = 0;
         int methods = 0;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(name));
+            BufferedReader reader = new BufferedReader(new FileReader(getFolderPath()+name));
             String line;
             boolean insideClass = false;
             boolean insideMethod = false;
@@ -53,7 +54,7 @@ class ProgramFileSnapshot extends FileSnapshot {
         int lines = 0;
         int methods = 0;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(this.getName()));
+            BufferedReader reader = new BufferedReader(new FileReader(getFolderPath()+getName()));
             String line;
             boolean insideClass = false;
             boolean insideMethod = false;
@@ -89,7 +90,7 @@ class ProgramFileSnapshot extends FileSnapshot {
         int lines = 0;
         int methods = 0;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(this.getName()));
+            BufferedReader reader = new BufferedReader(new FileReader(getFolderPath()+this.getName()));
             String line;
             boolean insideClass = false;
             boolean insideMethod = false;

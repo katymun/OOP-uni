@@ -3,6 +3,7 @@ import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +19,10 @@ public class ImageFileSnapshot extends FileSnapshot {
         return height;
     }
 
-    public ImageFileSnapshot(String name) {
-        super(name);
+    public ImageFileSnapshot(String name, String path) {
+        super(name, path);
         try {
-            File imageFile = new File(getName());
+            File imageFile = new File(getFolderPath()+getName());
             BufferedImage image = ImageIO.read(imageFile);
             if (image != null) {
                 this.width = image.getWidth();
@@ -38,7 +39,7 @@ public class ImageFileSnapshot extends FileSnapshot {
     public void updateSnapshot() {
         super.updateSnapshot();
         try {
-            File imageFile = new File(getName());
+            File imageFile = new File(getFolderPath()+getName());
             BufferedImage image = ImageIO.read(imageFile);
             if (image != null) {
                 this.width = image.getWidth();
@@ -54,7 +55,7 @@ public class ImageFileSnapshot extends FileSnapshot {
     public List<Integer> getCurrectDimensions() {
         List<Integer> list = new ArrayList<>();
         try {
-            File imageFile = new File(getName());
+            File imageFile = new File(getFolderPath()+getName());
             BufferedImage image = ImageIO.read(imageFile);
             if (image != null) {
                 list.add(image.getWidth());

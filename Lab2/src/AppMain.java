@@ -4,19 +4,28 @@ import java.util.Scanner;
 
 public class AppMain {
     public static void main(String[] args) {
-        Path folderPath = Paths.get("C:\\Users\\munka\\OneDrive\\Documents\\uni-git-projects\\OOP-uni\\testFolder");
+        String path = "C:\\Users\\munka\\OneDrive\\Documents\\uni-git-projects\\OOP-uni\\testFolder\\";
+        Path folderPath = Paths.get(path);
+
         Scanner scanner = new Scanner(System.in);
-        String command = "";
-        FileManager fm = new FileManager(folderPath);
+        String[] command = {"welcome"};
+        FileManager fm = new FileManager(path);
         System.out.println("Welcome!");
+        fm.addSnapshot("example.txt");
+        fm.addSnapshot("photo1.jpg");
+        fm.addSnapshot("SQLS.java");
 
+        while (!command[0].equals("exit")) {
+            System.out.print("Choose one of the commands (commit, info <filename>, status, exit): ");
+            command = scanner.nextLine().trim().split(" ");
+            switch (command[0]) {
+                case "commit": fm.commit(); break;
+                case "info": fm.printFileInfo(command[1]); break;
+                case "status": fm.printStatus(); break;
+                case "exit": System.exit(0);
+            }
 
-        while (command != "exit") {
-            System.out.println("Choose one of the commands (commit, info <filename>, status, exit): ");
         }
     }
 
-    public void printMenu() {
-        System.out.println("Choose one of the commands (commit, info <filename>, status, exit): ");
-    }
 }
