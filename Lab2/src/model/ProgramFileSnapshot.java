@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class ProgramFileSnapshot extends FileSnapshot {
+public class ProgramFileSnapshot extends FileSnapshot {
     private int lineCount;
     private int classCount;
     private int methodCount;
