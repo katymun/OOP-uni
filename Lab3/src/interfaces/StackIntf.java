@@ -1,11 +1,12 @@
 package interfaces;
 
-public interface StackIntf {
-    void push(int element);
+public interface StackIntf <T> {
     boolean isEmpty();
-    int pop();
-    int peek();
+    void push(T element);
+    T pop();
+    T peek();
     int size();
     void printStack();
+    void clear();
 
 }
