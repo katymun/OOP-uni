@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProgramFileSnapshot extends FileSnapshot {
+    public static final String methodRegex = ".*\\b\\w+\\s+\\w+\\(.*\\)\\s*\\{.*";
+    public static final String classRegex = ".*\\bclass\\s+\\w+.*";
     private int lineCount;
     private int classCount;
     private int methodCount;
@@ -27,7 +29,7 @@ public class ProgramFileSnapshot extends FileSnapshot {
 
             while ((line = reader.readLine()) != null) {
                 lines++;
-                if (line.trim().matches(".*\\bclass\\s+\\w+.*")) {
+                if (line.trim().matches(classRegex)) {
                     classes++;
                     insideClass = true;
                     insideMethod = false;
@@ -64,7 +66,7 @@ public class ProgramFileSnapshot extends FileSnapshot {
 
             while ((line = reader.readLine()) != null) {
                 lines++;
-                if (line.trim().matches(".*\\bclass\\s+\\w+.*")) {
+                if (line.trim().matches(classRegex)) {
                     classes++;
                     insideClass = true;
                     insideMethod = false;
@@ -100,12 +102,12 @@ public class ProgramFileSnapshot extends FileSnapshot {
 
             while ((line = reader.readLine()) != null) {
                 lines++;
-                if (line.trim().matches(".*\\bclass\\s+\\w+.*")) {
+                if (line.trim().matches(classRegex)) {
                     classes++;
                     insideClass = true;
                     insideMethod = false;
                 }
-                if (line.trim().matches(".*\\b\\w+\\s+\\w+\\(.*\\)\\s*\\{.*")) {
+                if (line.trim().matches(methodRegex)) {
                     if (!insideMethod) {
                         methods++;
                         insideMethod = true;

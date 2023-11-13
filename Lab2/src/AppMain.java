@@ -12,10 +12,6 @@ public class AppMain {
         FileManager fm = new FileManager(path);
         System.out.println("Welcome!");
 
-//        fm.addSnapshot("ex.txt");
-//        fm.addSnapshot("photo1.jpg");
-//        fm.addSnapshot("SQLS.java");
-
         while (!command[0].equals("exit")) {
             System.out.print("Choose one of the commands (commit, info <filename>, status, exit): ");
             command = scanner.nextLine().trim().split(" ");

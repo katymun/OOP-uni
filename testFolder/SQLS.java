@@ -27,4 +27,7 @@ public class SQLS {
 	void gogogo() {
               System.out.println("gogogo");
 }
+void gogogo() {
+              System.out.println("gogogo");
+}
 }
