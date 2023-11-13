@@ -18,7 +18,8 @@ public class FileSnapshot {
 
     public FileSnapshot(String name, String folderPath) {
         this.name = name;
-        this.extension = name.split("\\.")[name.split("\\.").length-1];
+        int lastIndex = name.lastIndexOf(".");
+        this.extension = (lastIndex > 0) ? name.substring(lastIndex +1) : "";
         this.lastModified = new Date();
         this.created = new Date();
         File file = new File(getFolderPath()+name);

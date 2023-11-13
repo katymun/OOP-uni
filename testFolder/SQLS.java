@@ -23,4 +23,11 @@ public class SQLS {
     //sql pentru entitatea applications
     public static String applicationsInsertDemo = "INSERT INTO `applications` VALUES (NULL,'applicant1_id','programme1_id','2023-01-01','cv1.pdf','068123123','nume.prenume@isa.utm.md','UTM')";
     public static final String applicationsInsert = "INSERT INTO applications VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
+
+	void gogogo() {
+              System.out.println("gogogo");
+}
+void gogogo() {
+              System.out.println("gogogo");
+}
 }

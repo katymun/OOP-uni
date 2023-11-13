@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class TextFileSnapshot extends FileSnapshot {
+public class TextFileSnapshot extends FileSnapshot {
     private int lineCount;
     private int wordCount;
     private int charCount;
@@ -52,9 +52,9 @@ class TextFileSnapshot extends FileSnapshot {
             String line;
             while ((line = reader.readLine()) != null) {
                 lineCount++;
-                lineCount += line.length();
                 String[] words = line.split(" ");
                 wordCount += words.length;
+                charCount += line.length();
             }
             reader.close();
         } catch (FileNotFoundException e) {
@@ -79,9 +79,9 @@ class TextFileSnapshot extends FileSnapshot {
             String line;
             while ((line = reader.readLine()) != null) {
                 lineCount++;
-                lineCount += line.length();
                 String[] words = line.split(" ");
                 wordCount += words.length;
+                charCount += line.length();
             }
             reader.close();
         } catch (FileNotFoundException e) {

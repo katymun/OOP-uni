@@ -38,11 +38,15 @@ public class FileManager {
             snapshots.add(snapshot);
             storedFileNames.add(snapshot.getName());
         }
+        snapshotsAdded.clear();
+        snapshotsDeleted.clear();
         this.lastCommit = new Date();
         System.out.println("Done commit at " + lastCommit.toString());
         for (FileSnapshot snapshot : snapshots) {
             snapshot.updateSnapshot();
         }
+//        System.out.println(snapshots);
+//        System.out.println(storedFileNames);
     }
 
     public void addSnapshot(String name) {
@@ -71,34 +75,50 @@ public class FileManager {
         if (folder.isDirectory()) {
             File[] files1 = folder.listFiles();
             List<File> files = Arrays.asList(files1);
-            if (files != null) {
+            List<String> fileNames = new ArrayList<>();
+            for (File file : files) {
+                fileNames.add(file.getName());
+            }
+//            if (files != null) {
+                for (FileSnapshot snapshot : snapshots) {
+                    if (!fileNames.contains(snapshot.getName())) {
+                        snapshotsDeleted.add(snapshot);
+                    }
+                }
+
                 for (File file : files) {
                     if (file.isFile()) {
                         if (!storedFileNames.contains(file.getName())) {
                             FileSnapshot snapshot = null;
-                            String extension = file.getName().split(".")[-1];
+
+                            int lastIndex = file.getName().lastIndexOf(".");
+                            String extension = (lastIndex > 0) ? file.getName().substring(lastIndex +1) : "";
+
                             switch (extension) {
-                            case "png": snapshot = new ImageFileSnapshot(file.getName(),folderPath); break;
-                            case "jpg": snapshot = new ImageFileSnapshot(file.getName(),folderPath); break;
-                            case "txt": snapshot = new TextFileSnapshot(file.getName(),folderPath); break;
-                            case "py": snapshot = new ProgramFileSnapshot(file.getName(),folderPath); break;
-                            case "java": snapshot = new ProgramFileSnapshot(file.getName(),folderPath); break;
-                            default: snapshot = new FileSnapshot(file.getName(),folderPath);
-                        }
+                                case "png": snapshot = new ImageFileSnapshot(file.getName(),folderPath); break;
+                                case "jpg": snapshot = new ImageFileSnapshot(file.getName(),folderPath); break;
+                                case "txt": snapshot = new TextFileSnapshot(file.getName(),folderPath); break;
+                                case "py": snapshot = new ProgramFileSnapshot(file.getName(),folderPath); break;
+                                case "java": snapshot = new ProgramFileSnapshot(file.getName(),folderPath); break;
+                                default: snapshot = new FileSnapshot(file.getName(),folderPath);
+                            }
                             snapshotsAdded.add(snapshot);
+                            storedFileNames.add(snapshot.getName());
                         }
                     }
                 }
-                for (FileSnapshot snapshot : snapshots) {
-                    if (!files.contains(snapshot)) {
-                        snapshotsDeleted.add(snapshot);
-                    }
-                }
-                System.out.println(snapshotsDeleted);
-                System.out.println(snapshots);
-                System.out.println(files);
+
                 for (FileSnapshot snapshot : snapshotsDeleted) {
                     snapshots.remove(snapshot);
+                    storedFileNames.remove(snapshot.getName());
+                }
+
+                for (FileSnapshot snapshot : snapshotsAdded) {
+                    System.out.println(snapshot.getName() + " - Created");
+                }
+
+                for (FileSnapshot snapshot : snapshotsDeleted) {
+                    System.out.println(snapshot.getName() + " - Deleted");
                 }
 
                 for (FileSnapshot snapshot : snapshots) {
@@ -108,16 +128,9 @@ public class FileManager {
                         System.out.println(snapshot.getName() + " - No Change");
                     }
                 }
-
-                for (FileSnapshot snapshot : snapshotsAdded) {
-                    System.out.println(snapshot.getName() + " - Created");
-                }
-                for (FileSnapshot snapshot : snapshotsDeleted) {
-                    System.out.println(snapshot.getName() + " - Deleted");
-                }
-            } else {
-                System.out.println("No files found in the folder.");
-            }
+//            } else {
+//                System.out.println("No files found in the folder.");
+//            }
         } else {
             System.out.println("The specified path is not a directory.");
         }
